@@ -26,7 +26,7 @@ function App() {
   }
 ]);
 
-const [playlistName, setPlaylistName] = useState('My Favorites');
+const [playlistName, setPlaylistName] = useState('Best Moments');
 const [playlistTracks, setPlaylistTracks] = useState([
   {
     name: 'Glasgow Kiss',
@@ -52,6 +52,14 @@ const addTrack = (track) => {
   };
 }
 
+const removeTrack = (track) => {
+  setPlaylistTracks(playlistTracks.filter(savedTrack => savedTrack.id !== track.id))
+}
+
+const updatePlaylistName = (name) => {
+  setPlaylistName(name)
+}
+
   return (
     <div>
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
@@ -59,7 +67,7 @@ const addTrack = (track) => {
         <SearchBar />
         <div className="App-playlist">
           <SearchResults onAdd={addTrack} searchResults={searchResults}/> {/*passed the state of search results and the method for adding tracks */}
-          <Playlist playlistName={playlistName} playlistTracks={playlistTracks}/>
+          <Playlist onNameChange={updatePlaylistName} onRemove={removeTrack} playlistName={playlistName} playlistTracks={playlistTracks}/>
         </div>
       </div>
     </div>
