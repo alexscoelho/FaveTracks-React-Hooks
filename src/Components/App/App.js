@@ -4,7 +4,7 @@ import {SearchBar} from '../SearchBar/SearchBar';
 import {SearchResults} from '../SearchResults/SearchResults';
 import {Playlist} from '../Playlist/Playlist';
 
-function App(props) {
+function App() {
   const [searchResults, setSearchResults] = useState([
   {
     name: 'Run to the hills',
@@ -42,13 +42,23 @@ const [playlistTracks, setPlaylistTracks] = useState([
   }
 ]);
 
+const addTrack = (track) => {
+  if (playlistTracks.find(savedTrack => savedTrack.id === track.id )) {
+    return;
+  } else {
+    setPlaylistTracks(prevTracks => {
+      return [track, ...prevTracks];
+    })
+  };
+}
+
   return (
     <div>
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
       <div className="App">
         <SearchBar />
         <div className="App-playlist">
-          <SearchResults searchResults={searchResults}/> {/*passed the state of search results*/}
+          <SearchResults onAdd={addTrack} searchResults={searchResults}/> {/*passed the state of search results and the method for adding tracks */}
           <Playlist playlistName={playlistName} playlistTracks={playlistTracks}/>
         </div>
       </div>

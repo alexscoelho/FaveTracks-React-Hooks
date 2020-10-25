@@ -1,14 +1,18 @@
 import React from 'react';
 import './Track.css';
 
-export const Track = ({isRemoval, track}) => {
+export const Track = ({isRemoval, track, onAdd}) => {
+
+    const addTrack = () => {
+        onAdd(track)
+    }
 
     const renderAction = () => {
         return (
             isRemoval ? (
             <button className='Track-action'>-</button>
             ) : (
-            <button className='Track-action'>+</button>
+            <button onClick={addTrack} className='Track-action'>+</button>
             )
         );
     }
